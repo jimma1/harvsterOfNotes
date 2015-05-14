@@ -52,11 +52,23 @@
         <div class="page-header">
             <h1>Kvittr <small>{% block subheader %}{% endblock %}</small></h1>
         </div>
+        <!-- display messages when notes sucessfully added -->
+        {% if messages %}
+        	<div class="container">
+        		<ul class="messages">
+        			{% for message in messages %}
+        				<li id="message_{{ forloop.counter }}">
+        					{{message}}
+        				</li>
+        			{% endfor%}
+        		</ul>
+        	</div><!-- end container -->
+        {% endif %}
 
         {% block pagecontent %}
 
-        {% endblock %}
+        {% endblock pagecontent%}
 
-    </div>
+    </div><!-- end container -->
 
 {% endblock body %}
