@@ -21,6 +21,6 @@ def add_note(request):
 	return render(request, 'notes/addnote.html', context)
 
 def index_view(request):
-	notes = Note.objects.all()
+	notes = Note.objects.all().order_by('-timestamp')
 	context = {}
 	return render (request, 'notes/index.html', {'notes': notes})
