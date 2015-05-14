@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block pagecontent %}
+
+<div class="jumbotron">
+	<h1 align="center">Notes</h1>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		{% if notes %}
+			{% for note in notes %}
+				<h3 class="page-header">{{note.label}}</h3>
+				{{note.body}}
+			{% endfor%}
+		{% else %}
+			<div class="alert alert-warning" align="center">
+				<h3>No notes yet</h3>
+			</div>
+		{% endif%}
+	</div><!-- end col-->
+</div><!-- end row-->
+
+{% endblock pagecontent %}

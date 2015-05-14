@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block pagecontent %}
+
+<div class="jumbotron">
+	<h1 align="center">Create New Note</h1>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<form action="" method="POST">{% csrf_token %}
+			{{form.as_p}}
+			<button type="submit" class="btn btn-primary">Submit new note</button>
+		</form>
+	</div><!-- end col-->
+</div><!-- end row-->
+
+{% endblock pagecontent %}
