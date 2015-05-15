@@ -3,13 +3,14 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.text import slugify
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from notes.models import Note, Tag
 from notes.forms import NoteForm, TagForm
 
 # Create your views here.
 '''
-Code is repeated in add_tagg and add_note. One other solution for this is to write class based views.
+Code is repeated in add_tagg and add_note, and pagination is repeated two places. One other solution for this is to write class based views.
 Since there is just this block which is repeated I do not prioritize to learn class based views now.
 '''
 
@@ -17,10 +18,19 @@ def tag_search(request, **kwargs):
 	slug = kwargs['slug']
 	tag = get_object_or_404(Tag, slug=slug)
 	notes = tag.notes.all()
+	# pagination
+	page_number = request.GET.get('page')
+	paginator = Paginator(notes, 5)
+	try:
+		notes = paginator.page(page_number)
+	except PageNotAnInteger:
+		notes = paginator.page(1)
+	except EmptyPage:
+		notes = paginator.page(paginator.num_pages)
+	
 	context = {
 		'notes': notes,
-		'tag': tag
-	}
+		'tag': tag}
 
 	return render(request, 'notes/tagsearch.html', context)
 
@@ -86,6 +96,17 @@ def add_note(request):
 
 def index_view(request):
 	notes = Note.objects.all().order_by('-timestamp')
+	# Pagination
+	page_number = request.GET.get('page')
+	paginator = Paginator(notes, 5)
+	try:
+		notes = paginator.page(page_number)
+	except PageNotAnInteger:
+		notes = paginator.page(1)
+	except EmptyPage:
+		notes = paginator.page(paginator.num_pages)
+
+
 	tags = Tag.objects.all()
 	context = {
 		'notes': notes,
