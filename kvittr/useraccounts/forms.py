@@ -36,8 +36,30 @@ class RegistrationForm(ModelForm):
 			raise forms.ValidationError("Passwords don't match. Try again")
 		return self.cleaned_data
 
-
-
 class LoginForm(forms.Form):
 	username = forms.CharField(label=(u'Username'))
 	password = forms.CharField(label=(u'Password'), widget=forms.PasswordInput(render_value=False))
+
+class UserupdateForm(forms.ModelForm):
+	first_name = forms.CharField(label=(u'First Name'), required=True)
+	last_name = forms.CharField(label=(u'Last Name'), required=True)
+	email = forms.EmailField(label=(u'Email Address'), required=True)
+
+	class Meta:
+		model = User
+		fields = (
+			'first_name',
+			'last_name',
+			'email'
+			)
+
+	def save(self, commit=True):
+		user = super(RegistrationForm, self).save(commit=False)
+		user.first_name = self.cleaned_data['first_name']
+		user.last_name= self.cleaned_data['last_name']
+		user.email = self.cleaned_data['email']
+
+		if commit:
+			user.save()
+
+		return user

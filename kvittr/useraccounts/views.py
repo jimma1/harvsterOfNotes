@@ -4,10 +4,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from useraccounts.forms import LoginForm, RegistrationForm
+from useraccounts.forms import LoginForm, RegistrationForm, UserupdateForm
 
 # Create your views here.
-
 def user_registration(request):
 	if request.method == 'POST':
 		# get userinput in form
@@ -65,3 +64,25 @@ def user_login(request):
 		return render (request, 'useraccounts/login.html', context)
 	if request.user.is_authenticated():
 		return redirect('home')
+
+def user_update(request):
+	context = {}
+	if request.method == 'POST':
+		# instance is logged in user
+		form = UserupdateForm(request.POST, instance=request.user)
+		if form.is_valid():
+			form.save()
+			context['update_ok'] = True
+			return render(request, 'useraccounts/update.html', context)
+	# not post
+	else:
+		# fill in existing userinfo in form
+		initial_args = {
+			"first_name":request.user.first_name,
+			"last_name":request.user.last_name,
+			"email":request.user.email
+		}
+		form = UserupdateForm(initial=initial_args)
+
+	context['form'] = form
+	return render (request, 'useraccounts/update.html', context)
