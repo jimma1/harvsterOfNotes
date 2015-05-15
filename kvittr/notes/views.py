@@ -17,6 +17,12 @@ def add_note(request):
 		note = None
 
 	if request.method == 'POST':
+		# delete note
+		if request.POST.get('control') == 'delete':
+			note.delete()
+			messages.add_message(request, messages.INFO, 'Note Deleted!')
+			return HttpResponseRedirect(reverse('notes:index'))
+		# new note
 		form = NoteForm(request.POST, instance=note)
 		if form.is_valid():
 			form.save()
@@ -24,7 +30,11 @@ def add_note(request):
 			return HttpResponseRedirect(reverse('notes:index'))
 	else:
 		form = NoteForm(instance=note)
-		context = {'form': form}
+		context = {
+			'form': form,
+		 	'note': note
+		 	}
+
 	return render(request, 'notes/addnote.html', context)
 
 def index_view(request):
