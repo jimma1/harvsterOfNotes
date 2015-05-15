@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.utils.text import slugify
 
 from notes.models import Note, Tag
 from notes.forms import NoteForm, TagForm
@@ -11,6 +12,17 @@ from notes.forms import NoteForm, TagForm
 Code is repeated in add_tagg and add_note. One other solution for this is to write class based views.
 Since there is just this block which is repeated I do not prioritize to learn class based views now.
 '''
+
+def tag_search(request, **kwargs):
+	slug = kwargs['slug']
+	tag = get_object_or_404(Tag, slug=slug)
+	notes = tag.notes.all()
+	context = {
+		'notes': notes,
+		'tag': tag
+	}
+
+	return render(request, 'notes/tagsearch.html', context)
 
 def add_tag(request):
 	#fetch tag by id to manipulate posted notes and pass the instance of posted note to form
@@ -26,10 +38,12 @@ def add_tag(request):
 			tag.delete()
 			messages.add_message(request, messages.INFO, 'Tag Deleted!')
 			return HttpResponseRedirect(reverse('notes:index'))
-		# new tag
+		# new tag which is slugifyed by Django, due to url search on tags
 		form = TagForm(request.POST, instance=tag)
 		if form.is_valid():
-			form.save()
+			t = form.save(commit=False)
+			t.slug = slugify(t.label)
+			t.save()
 			messages.add_message(request, messages.INFO, 'Tag Added')
 			return HttpResponseRedirect(reverse('notes:index'))
 	else:
