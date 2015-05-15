@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^$', home_view, name='home'),
     # requests to mysite.com/notes directed to urls.py in notes dir
     url(r'^notes/', include('notes.urls', namespace='notes')),
+    url(r'^useraccounts/', include('useraccounts.urls', namespace='useraccounts')),
 ]
