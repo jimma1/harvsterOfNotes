@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -7,6 +7,11 @@ from django.core.urlresolvers import reverse
 from useraccounts.forms import LoginForm
 
 # Create your views here.
+
+def user_logut(request):
+	logout(request)
+	return redirect('home')
+
 def user_login(request):
 	if request.method == 'POST':
 		# fetch filled out form
