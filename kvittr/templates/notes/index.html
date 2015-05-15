@@ -10,8 +10,11 @@
 		{% if notes %}
 			{% for note in notes %}
 				<h3 class="page-header">{{note.label}}</h3>
-				{{note.body}}
-				<a href="{% url 'notes:addnote' %}?id={{note.id}}">Edit</a>
+				<div style="margin-bottom: 10px;">{{note.body}}</div>
+					{% for tag in note.tags.all %}
+						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+					{% endfor %}
+				<a href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
 			{% endfor%}
 		{% else %}
 			<div class="alert alert-warning" align="center">
@@ -28,7 +31,7 @@
 						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
 						<ul>
 							<li>
-								<a href="{% url 'notes:addtag' %}?id={{tag.id}}">Edit</a>
+								<a href="{% url 'notes:addtag' %}?id={{tag.id}}">Edit tag</a>
 							</li>
 						</ul>
 					</li>
@@ -42,7 +45,7 @@
 <div class="pagination">
 	<span class"step-links">
 		{% if notes.has_previous %}
-			<a href="?page={{notes.previous_page_number}}">previous</a>
+			<a href="?page={{notes.previous_page_number}}">previous page</a>
 		{% endif %}
 
 		<span class="current">
@@ -50,7 +53,7 @@
 		</span>
 
 		{% if notes.has_next %}
-			<a href="?page={{ notes.next_page_number }}">next</a>
+			<a href="?page={{ notes.next_page_number }}">next page</a>
 		{% endif %}
 	</span>
 </div><!-- end pagination-->
