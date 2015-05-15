@@ -7,6 +7,39 @@ from notes.models import Note, Tag
 from notes.forms import NoteForm, TagForm
 
 # Create your views here.
+'''
+Code is repeated in add_tagg and add_note. One other solution for this is to write class based views.
+Since there is just this block which is repeated I do not prioritize to learn class based views now.
+'''
+
+def add_tag(request):
+	#fetch tag by id to manipulate posted notes and pass the instance of posted note to form
+	id = request.GET.get('id', None)
+	if id is not None:
+		tag = get_object_or_404(Tag, id=id)
+	else:
+		tag = None
+
+	if request.method == 'POST':
+		# delete tag
+		if request.POST.get('control') == 'delete':
+			tag.delete()
+			messages.add_message(request, messages.INFO, 'Tag Deleted!')
+			return HttpResponseRedirect(reverse('notes:index'))
+		# new tag
+		form = TagForm(request.POST, instance=tag)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request, messages.INFO, 'Tag Added')
+			return HttpResponseRedirect(reverse('notes:index'))
+	else:
+		form = TagForm(instance=tag)
+		context = {
+			'form': form,
+		 	'tag': tag
+		 	}
+
+	return render(request, 'notes/addtag.html', context)
 
 def add_note(request):
 	#fetch note by id to manipulate posted notes and pass the instance of posted note to form
