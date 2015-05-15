@@ -10,7 +10,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Kvittr</a>
+          <a class="navbar-brand" href="{% url 'home' %}">Kvittr</a>
         </div>
          <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -40,7 +40,7 @@
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Account</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="{% url 'useraccounts:logout' %}">Logout</a></li>
                   </ul>
                 </li>
             {% endif %}
