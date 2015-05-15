@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 
-from notes.models import Note
-from notes.forms import NoteForm
+from notes.models import Note, Tag
+from notes.forms import NoteForm, TagForm
 
 # Create your views here.
 
@@ -39,5 +39,9 @@ def add_note(request):
 
 def index_view(request):
 	notes = Note.objects.all().order_by('-timestamp')
-	context = {'notes': notes}
+	tags = Tag.objects.all()
+	context = {
+		'notes': notes,
+		'tags': tags
+		}
 	return render (request, 'notes/index.html', context)

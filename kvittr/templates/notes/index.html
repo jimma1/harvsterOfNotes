@@ -6,7 +6,7 @@
 </div>
 
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-9">
 		{% if notes %}
 			{% for note in notes %}
 				<h3 class="page-header">{{note.label}}</h3>
@@ -19,6 +19,18 @@
 			</div>
 		{% endif%}
 	</div><!-- end col-->
+	<div class="col-sm-3">
+		<h3 class="page-header">Tags</h3>
+		<ul>
+			{% if tags %}
+				{% for tag in tags %}
+					<li>{{tag}}</li>
+				{% endfor %}
+			{% else %}
+				<div class="alert alert-warning">No tags yet</div>
+			{% endif %}
+		</ul>
+	</div><!-- end col -->
 </div><!-- end row-->
 
 {% endblock pagecontent %}
