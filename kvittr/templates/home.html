@@ -4,5 +4,31 @@
 	<div class="jumbotron">
 		<h1 align="center">Note!</h1>
 	</div>
+	<div class="row">
+	<div class="col-sm-9">
+		{% if user.is_authenticated%}
+			{% if notes %}
+				{% for note in notes %}
+					<h3 class="page-header">{{note.label}}</h3>
+					<div style="margin-bottom: 10px;">{{note.body}}</div>
+						{% for tag in note.tags.all %}
+							<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+						{% endfor %}
+					<a href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
+				{% endfor%}
+			{% else %}
+				<div class="alert alert-warning" align="center">
+					<h3>No notes yet</h3>
+				</div>
+			{% endif%}
+		{% else %}
+			{% if notes %}
+				{% for note in notes %}
+					<h3 class="page-header">{{note.label}}</h3>
+					<div style="margin-bottom: 10px;">{{note.body}}</div>
+				{% endfor %}
+			{% endif %}
+		{% endif%}
+	</div><!-- end col-->
 
 {% endblock pagecontent %}

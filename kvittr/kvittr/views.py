@@ -3,5 +3,9 @@ Added this view so that the core part of the project handels the home part of si
 '''
 from django.shortcuts import render
 
+from notes.models import Note
+
 def home_view(request):
-	return render(request, 'home.html')
+	notes = Note.objects.all().order_by('-timestamp')
+	context = {'notes': notes}
+	return render(request, 'home.html', context)
