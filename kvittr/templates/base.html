@@ -69,23 +69,5 @@
 
 
         {% endblock pagecontent%}
-
-        {% block extra_pagecontent%}
-          <div class="pagination">
-              <span class"step-links">
-                {% if notes.has_previous %}
-                  <a href="?page={{notes.previous_page_number}}">previous page</a>
-                {% endif %}
-
-                <span class="current">
-                  Page {{ notes.number }} of {{ notes.paginator.num_pages }}.
-                </span>
-
-                {% if notes.has_next %}
-                  <a href="?page={{ notes.next_page_number }}">next page</a>
-                {% endif %}
-              </span>
-          </div><!-- end pagination-->
-        {% endblock extra_pagecontent%}
     </div><!-- end container -->
 {% endblock body %}
