@@ -1,34 +1,96 @@
 {% extends 'base.html' %}
 
 {% block pagecontent %}
-	<div class="jumbotron">
-		<h1 align="center">Note!</h1>
-	</div>
-	<div class="row">
-	<div class="col-sm-9">
-		{% if user.is_authenticated%}
-			{% if notes %}
-				{% for note in notes %}
-					<h3 class="page-header">{{note.label}}</h3>
-					<div style="margin-bottom: 10px;">{{note.body}}</div>
-						{% for tag in note.tags.all %}
-							<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
-						{% endfor %}
-					<a href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
-				{% endfor%}
-			{% else %}
-				<div class="alert alert-warning" align="center">
-					<h3>No notes yet</h3>
-				</div>
-			{% endif%}
+
+<div class="jumbotron">
+	<h1 align="center">Note!</h1>
+</div>
+
+<div class="row">
+{% if user.is_authenticated %}
+	<div class="col-sm-10">
+		{% if notes%}
+			{% for note in notes %}
+				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
+					<h3> {{ note.label }}</h3>
+					<div style="padding: 5px;"> {{ note.body }}</div>
+					{% for tag in note.tags.all %}
+						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+					{% endfor %}
+					<div>
+						<a style="float: right;" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
+					</div>
+				</div><!-- end col 5-->
+			{% endfor %}
 		{% else %}
-			{% if notes %}
-				{% for note in notes %}
-					<h3 class="page-header">{{note.label}}</h3>
-					<div style="margin-bottom: 10px;">{{note.body}}</div>
+			<div class="col-sm-12">
+				<h3>No notes yet</h3>
+			</div>
+		{% endif %}
+	</div><!-- end col 10-->
+	<div class="col-sm-2">
+		<h3 class="page-header">Tags</h3>
+		<ul>
+			{% if tags %}
+				{% for tag in tags %}
+					<li>
+						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
+						<ul>
+							<li>
+								<a href="{% url 'notes:addtag' %}?id={{tag.id}}">Edit tag</a>
+							</li>
+						</ul>
+					</li>
+				{% endfor %}
+			{% else %}
+				<div class="alert alert-warning">No tags yet</div>
+			{% endif %}
+		</ul>
+	</div><!-- end col 2-->
+{% else %}
+	<div class="col-sm-10">
+		{% if notes%}
+			{% for note in notes %}
+				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
+					<h3> {{ note.label }}</h3>
+					<div style="padding: 5px;"> {{ note.body }}</div>
+					{% for tag in note.tags.all %}
+						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+					{% endfor %}
+				</div><!-- end col 5-->
+			{% endfor %}
+		{% endif %}
+	</div><!-- end col 10-->
+	<div class="col-sm-2">
+		<h3 class="page-header">Tags</h3>
+		<ul>
+			{% if tags %}
+				{% for tag in tags %}
+					<li>
+						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
+					</li>
 				{% endfor %}
 			{% endif %}
-		{% endif%}
-	</div><!-- end col-->
+		</ul>
+	</div> <!-- end col 2-->
+{% endif %}
+</div><!-- endrow-->
+
+<div class="pagination">
+	<span class"step-links">
+		{% if notes.has_previous %}
+			<a href="?page={{notes.previous_page_number}}">previous page</a>
+		{% endif %}
+
+    <span class="current">
+    	Page {{ notes.number }} of {{ notes.paginator.num_pages }}.
+    </span>
+
+    {% if notes.has_next %}
+    	<a href="?page={{ notes.next_page_number }}">next page</a>
+    {% endif %}
+  </span><!-- end step links-->
+</div><!-- end pagination-->
+		
 
 {% endblock pagecontent %}
