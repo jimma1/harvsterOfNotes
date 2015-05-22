@@ -81,6 +81,7 @@ def add_note(request):
 
 	if request.method == 'POST':
 		# delete note
+		# is there a variable named delete in html file
 		if request.POST.get('control') == 'delete':
 			note.delete()
 			messages.add_message(request, messages.INFO, 'Note Deleted!')
@@ -89,12 +90,14 @@ def add_note(request):
 		# new note
 		form = NoteForm(request.POST, instance=note)
 		if form.is_valid():
-			# don't send form to DB yet
+			# create, but don't save instance
 			new_author = form.save(commit=False)
 			# add author
 			new_author.author = author
-			# send it to DB
+			# save instance
 			new_author.save()
+			# save many-to-many-data for the form
+			form.save_m2m()
 			messages.add_message(request, messages.INFO, 'Note Added')
 			return HttpResponseRedirect(reverse('notes:index'))
 	else:
