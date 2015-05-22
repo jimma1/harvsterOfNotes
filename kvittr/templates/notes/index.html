@@ -18,7 +18,10 @@
 					{% endfor %}
 					<div>
 						<p style="float: left;">By {{ note.author }}</p>
+						<!-- display functionality only when author of note object is the logged in user-->
+						{% if note and note.author == request.user %}
 						<a style="float: right;" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
+						{% endif %}
 					</div>
 				</div><!-- end col 5-->
 			{% endfor %}
