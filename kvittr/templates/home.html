@@ -12,13 +12,13 @@
 		{% if notes%}
 			{% for note in notes %}
 				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
-					<h3> {{ note.label }}</h3>
+					<h3 class="page-header"> {{ note.label }}</h3>
 					<div style="padding: 5px;"> {{ note.body }}</div>
 					{% for tag in note.tags.all %}
 						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
 					<div>
-						<p style="float: left;">Created by {{ note.author }}</p>
+						<p style="float: left;">By {{ note.author }}</p>
 						<a style="float: right;" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
 					</div>
 				</div><!-- end col 5-->
@@ -54,7 +54,10 @@
 			{% for note in notes %}
 				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
 					<h3> {{ note.label }}</h3>
-					<div style="padding: 5px;"> {{ note.body }}</div>
+					<div style="padding: 5px;">
+						{{ note.body }}
+						<p>By {{ note.author }}</p>
+					</div>
 					{% for tag in note.tags.all %}
 						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
