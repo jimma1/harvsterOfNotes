@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 
 from useraccounts.forms import LoginForm, RegistrationForm, UserupdateForm
 
@@ -21,6 +22,7 @@ def user_registration(request):
 				password=form.cleaned_data['password']
 				)
 			user.save()
+			messages.add_message(request, messages.INFO, 'User successfully registered. Login to add notes')
 			return HttpResponseRedirect(reverse('notes:index'))
 		# not valid
 		else:
