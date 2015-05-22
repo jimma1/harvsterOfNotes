@@ -54,7 +54,8 @@
         </div>
         <!-- display messages when notes sucessfully added -->
         {% if messages %}
-        	<div class="container">
+        <div class="row">
+        	<div class="container alert alert-info col-sm-5" role="alert">
         		<ul class="messages">
         			{% for message in messages %}
         				<li id="message_{{ forloop.counter }}">
@@ -63,6 +64,7 @@
         			{% endfor%}
         		</ul>
         	</div><!-- end container -->
+        </div><!-- end row -->
         {% endif %}
 
         {% block pagecontent %}
