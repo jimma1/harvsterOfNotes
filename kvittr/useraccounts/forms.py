@@ -28,6 +28,15 @@ class RegistrationForm(ModelForm):
 			return username
 		raise forms.ValidationError("That username is occupied. Please choose another")
 
+	# email check
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		try:
+			User.objects.get(email=email)
+		except User.DoesNotExist:
+			return email
+		raise forms.ValidationError("That email is allready taken. Please use another email address")
+
 	# password check
 	def clean(self):
 		password = self.cleaned_data.get('password')
