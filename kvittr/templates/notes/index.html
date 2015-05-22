@@ -6,23 +6,29 @@
 </div>
 
 <div class="row">
-	<div class="col-sm-9">
-		{% if notes %}
+{% if user.is_authenticated %}
+	<div class="col-sm-10">
+		{% if notes%}
 			{% for note in notes %}
-				<h3 class="page-header">{{note.label}}</h3>
-				<div style="margin-bottom: 10px;">{{note.body}}</div>
+				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
+					<h3 class="page-header"> {{ note.label }}</h3>
+					<div style="padding: 5px;"> {{ note.body }}</div>
 					{% for tag in note.tags.all %}
 						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
-				<a href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
-			{% endfor%}
+					<div>
+						<p style="float: left;">By {{ note.author }}</p>
+						<a style="float: right;" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
+					</div>
+				</div><!-- end col 5-->
+			{% endfor %}
 		{% else %}
-			<div class="alert alert-warning" align="center">
+			<div class="col-sm-12">
 				<h3>No notes yet</h3>
 			</div>
-		{% endif%}
-	</div><!-- end col-->
-	<div class="col-sm-3">
+		{% endif %}
+	</div><!-- end col 10-->
+	<div class="col-sm-2">
 		<h3 class="page-header">Tags</h3>
 		<ul>
 			{% if tags %}
@@ -40,7 +46,37 @@
 				<div class="alert alert-warning">No tags yet</div>
 			{% endif %}
 		</ul>
-	</div><!-- end col -->
+	</div><!-- end col 2-->
+{% else %}
+	<div class="col-sm-10">
+		{% if notes%}
+			{% for note in notes %}
+				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
+					<h3> {{ note.label }}</h3>
+					<div style="padding: 5px;">
+						{{ note.body }}
+						<p>By {{ note.author }}</p>
+					</div>
+					{% for tag in note.tags.all %}
+						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+					{% endfor %}
+				</div><!-- end col 5-->
+			{% endfor %}
+		{% endif %}
+	</div><!-- end col 10-->
+	<div class="col-sm-2">
+		<h3 class="page-header">Tags</h3>
+		<ul>
+			{% if tags %}
+				{% for tag in tags %}
+					<li>
+						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
+					</li>
+				{% endfor %}
+			{% endif %}
+		</ul>
+	</div> <!-- end col 2-->
+{% endif %}
 </div><!-- end row-->
 <div class="pagination">
               <span class"step-links">
