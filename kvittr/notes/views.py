@@ -4,9 +4,12 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+#from django.contrib.auth.models import User
+#from django.contrib.auth import get_user
 
 from notes.models import Note, Tag
 from notes.forms import NoteForm, TagForm
+from useraccounts.models import Member
 
 # Create your views here.
 '''
@@ -73,16 +76,25 @@ def add_note(request):
 	else:
 		note = None
 
+	# get the logged in user
+	author = request.user
+
 	if request.method == 'POST':
 		# delete note
 		if request.POST.get('control') == 'delete':
 			note.delete()
 			messages.add_message(request, messages.INFO, 'Note Deleted!')
 			return HttpResponseRedirect(reverse('notes:index'))
+		
 		# new note
 		form = NoteForm(request.POST, instance=note)
 		if form.is_valid():
-			form.save()
+			# don't send form to DB yet
+			new_author = form.save(commit=False)
+			# add author
+			new_author.author = author
+			# send it to DB
+			new_author.save()
 			messages.add_message(request, messages.INFO, 'Note Added')
 			return HttpResponseRedirect(reverse('notes:index'))
 	else:
@@ -105,6 +117,9 @@ def index_view(request):
 		notes = paginator.page(1)
 	except EmptyPage:
 		notes = paginator.page(paginator.num_pages)
+
+	if request.user.is_authenticated():
+		user = request.user
 
 
 	tags = Tag.objects.all()
