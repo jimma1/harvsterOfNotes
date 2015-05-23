@@ -12,7 +12,19 @@
 			{% for note in notes %}
 				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
 					<h3 class="page-header"><a href="{% url 'notes:detailnote'%}?id={{note.id}}"> {{ note.label }} </a> </h3>
-					<div style="padding: 5px;"> {{ note.body }}</div>
+					<div style="padding: 5px;"> 
+						{{ note.body }}
+						<p>
+							<div>
+								<a href="" id="increase_num_likes_thumb"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+							</div>
+							<div id="num_likes_div">
+								{{ note.num_likes }}
+							</div>
+						</p>
+						<input type="hidden" id="num_likes_url" value="/notes/?id={{ note.id }}/increase_num_likes/" >
+
+					</div>
 					{% for tag in note.tags.all %}
 						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
