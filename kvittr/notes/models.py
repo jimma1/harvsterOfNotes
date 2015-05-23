@@ -16,6 +16,7 @@ class Note(models.Model):
 	# a note may have zero or many tags
 	tags = models.ManyToManyField('Tag', related_name='notes')
 	author = models.ForeignKey(User)
+	num_likes = models.PositiveIntegerField(default=0)
 
 	def __unicode__(self):
 		return u'%s' % (self.label)
