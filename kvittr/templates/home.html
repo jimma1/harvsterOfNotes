@@ -12,7 +12,7 @@
 		{% if notes%}
 			{% for note in notes %}
 				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
-					<h3 class="page-header"> {{ note.label }}</h3>
+					<h3 class="page-header"> <a href="{% url 'notes:detailnote' %}?id={{note.id}}">{{ note.label }}</a></h3>
 					<div style="padding: 5px;"> {{ note.body }}</div>
 					{% for tag in note.tags.all %}
 						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
