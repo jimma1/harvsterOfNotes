@@ -1,9 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+# decorator which overrides crsftoken functionality. DO NOT TRY THIS ON PRODUCTION SERVER! 
+# Use Django x-csrf (https://docs.djangoproject.com/en/1.8/ref/csrf/) to get Cookie
+#from django.views.decorators.csrf import csrf_exempt
+
+from django.http import JsonResponse
 #from django.contrib.auth.models import User
 #from django.contrib.auth import get_user
 
@@ -16,6 +22,26 @@ from useraccounts.models import Member
 Code is repeated in add_tagg and add_note, and pagination is repeated two places. One other solution for this is to write class based views.
 Since there is just this block which is repeated I do not prioritize to learn class based views now.
 '''
+
+def increase_num_likes(request):
+	id = request.GET.get('id', None)
+	if id is None:
+		note = get_object_or_404(Note, id=id)
+	else:
+		note = None
+	note.num_likes += 1
+	note.save()
+	data = {'num_likes_updated': note.num_likes}
+	return JsonResponse(data)
+
+'''
+def vote(request):
+	note = get_object_or_404(Note, pk=request.POST.get('note'))
+	note.num_likes += 1
+	note.save()
+	return HttpResponse()	
+'''
+
 def detail_note(request):
 	id = request.GET.get('id', None)
 	if id is not None:
