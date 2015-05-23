@@ -16,6 +16,16 @@ from useraccounts.models import Member
 Code is repeated in add_tagg and add_note, and pagination is repeated two places. One other solution for this is to write class based views.
 Since there is just this block which is repeated I do not prioritize to learn class based views now.
 '''
+def detail_note(request):
+	id = request.GET.get('id', None)
+	if id is not None:
+		note = get_object_or_404(Note, id=id)
+	else:
+		note = None
+	context={
+		'note': note
+		}
+	return render(request,'notes/detailnote.html', context)
 
 def tag_search(request, **kwargs):
 	slug = kwargs['slug']

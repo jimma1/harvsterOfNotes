@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+{% block extra_head %}
+{{block.super}}
+{% if note %}
+	<meta property="og:title" content="{{note.label}}" />
+	<meta property="og:type" content="Kvittr Note" />
+	<meta property="og:site_name" content="kvittr.no" />
+	<meta property="og:description" content="{{note.body}}" />
+	<meta property="og:url" content="http://kvittr.no/notes/{{note.id}}" />
+	<!-- hvis det var bilder ville de blitt skrevet inn her. Det er jo bare avskrift fra github til foreleser, så ser ikke poenget. -->
+{% endif %}
+{% endblock extra_head %}
+
+{% block pagecontent %}
+<div class="row">
+	<div class="container">
+		<div class="col-sm-12">
+			<p>Title: {{ note.label }}</p>
+			<p>Description: {{ note.body }}</p>
+			<p>Created on: {{note.timestamp}}</p>
+			<p>Created by: {{note.author}} </p>
+{% endblock pagecontent %}
+		</div><!-- end col-->
+	</div><!-- end container-->
+</div><!-- end row -->
