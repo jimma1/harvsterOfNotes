@@ -22,7 +22,7 @@
 			<p>
 				<div>
 					<a id="increase_num_likes_thumb" href="">
-						<span class="glyphicon glyphicon-thumbs-up"></span>
+						<span class="glyphicon glyphicon-thumbs-up" style="margin-right: 10px;"></span>
 					</a>
 					<a id="decrease_num_likes_thumb" href="">
 						<span class="glyphicon glyphicon-thumbs-down"></span>
@@ -36,6 +36,8 @@
 		</div><!-- end col-->
 	</div><!-- end container-->
 </div><!-- end row -->
+
 <input type="hidden" id="num_likes_url" value="/notes/{{ note.id }}/increase_num_likes/" >
-			<input type="hidden" id="decrease_num_likes_url" value="/notes/{{ note.id }}/decrease_num_likes/" >
+<input type="hidden" id="decrease_num_likes_url" value="/notes/{{ note.id }}/decrease_num_likes/" >
+
 {% endblock pagecontent %}
