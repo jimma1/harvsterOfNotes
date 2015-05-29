@@ -13,14 +13,13 @@
 				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
 					<h3 class="page-header"><a href="{% url 'notes:detailnote'%}?id={{note.id}}"> {{ note.label }} </a>
 						{% if note.num_likes > 0 %}
-							<span style="float: right;" class="glyphicon glyphicon-thumbs-up">= {{ note.num_likes }} </span>
+							<span style="float: right;" class="glyphicon glyphicon-thumbs-up">: {{ note.num_likes }} </span>
 						{% else %}
-							<span style="float:right;" class="glyphicon glyphicon-thumbs-down">= {{ note.num_likes }}</span>
+							<span style="float:right;" class="glyphicon glyphicon-thumbs-down">: {{ note.num_likes }}</span>
 						{% endif %}
 					</h3>
 					<div style="padding: 5px;"> 
 						{{ note.body }}
-
 					</div>
 					{% for tag in note.tags.all %}
 						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
