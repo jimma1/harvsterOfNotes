@@ -14,6 +14,8 @@
 					<h3 class="page-header"><a href="{% url 'notes:detailnote'%}?id={{note.id}}"> {{ note.label }} </a>
 						{% if note.num_likes > 0 %}
 							<span style="float: right;" class="glyphicon glyphicon-thumbs-up">: {{ note.num_likes }} </span>
+						{% elif note.num_likes = 0 %}
+							<span style="float:right;">No votes</span>
 						{% else %}
 							<span style="float:right;" class="glyphicon glyphicon-thumbs-down">: {{ note.num_likes }}</span>
 						{% endif %}
