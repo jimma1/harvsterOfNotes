@@ -8,15 +8,21 @@ from django.http import JsonResponse
 
 from notes.models import Note, Tag
 from notes.forms import NoteForm, TagForm
-from useraccounts.models import Member
+#from useraccounts.models import Member
 
 # Create your views here.
 '''
 Code is repeated in add_tagg and add_note, and pagination is repeated two places. One other solution for this is to write class based views.
 Since there is just this block which is repeated I do not prioritize to learn class based views now.
 '''
- 
-#FROM STACKOVERFLOW
+
+def decrease_num_likes(request, id):
+	note = get_object_or_404(Note, id=id)
+	note.num_likes -= 1
+	note.save()
+	data = {'num_likes_updated': note.num_likes}
+	return JsonResponse(data)
+
 def increase_num_likes(request, id):
 	note = get_object_or_404(Note, id=id)
 	note.num_likes += 1

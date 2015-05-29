@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url, include
 
-from notes.views import index_view, add_note, add_tag, tag_search, detail_note, increase_num_likes
+from notes.views import index_view, add_note, add_tag, tag_search, detail_note, increase_num_likes, decrease_num_likes
 
 
 urlpatterns = patterns('',
@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 	url(r'^tags/(?P<slug>[-\w]+)/$', tag_search, name='tagsearch'),
 	url(r'^detailnote/', detail_note,  name='detailnote'),
 	url(r'^(?P<id>[\d\w]+)/increase_num_likes/$', increase_num_likes, name='increase_numlikes'),
+	url(r'^(?P<id>[\d\w]+)/decrease_num_likes/$', decrease_num_likes, name='decrease_numlikes'),
 	)
