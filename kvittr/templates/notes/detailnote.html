@@ -7,7 +7,7 @@
 	<meta property="og:site_name" content="kvittr.no" />
 	<meta property="og:description" content="{{note.body}}" />
 	<meta property="og:url" content="http://kvittr.no/notes/{{note.id}}" />
-	<!-- hvis det var bilder ville de blitt skrevet inn her. Det er jo bare avskrift fra github til foreleser, så ser ikke poenget. -->
+	<!-- hvis det var bilder ville de blitt skrevet inn her. Det er jo bare avskrift fra repoet eid av foreleser, så ser ikke poenget. -->
 {% endif %}
 {% endblock extra_head %}
 
@@ -19,7 +19,19 @@
 			<p>Description: {{ note.body }}</p>
 			<p>Created on: {{note.timestamp}}</p>
 			<p>Created by: {{note.author}} </p>
-{% endblock pagecontent %}
+			<p>
+				<div>
+					<a id="increase_num_likes_thumb" href="">
+						<span class="glyphicon glyphicon-thumbs-up"></span>
+					</a>
+				</div>
+				<span> Number of likes:</span>
+				<div id="num_likes_div">
+					{{ note.num_likes }}
+				</div>
+			</p>
+			<input type="hidden" id="num_likes_url" value="/notes/{{ note.id }}/increase_num_likes/" >
 		</div><!-- end col-->
 	</div><!-- end container-->
 </div><!-- end row -->
+{% endblock pagecontent %}
