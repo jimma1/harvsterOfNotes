@@ -12,19 +12,15 @@
 			{% for note in notes %}
 				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
 					<h3 class="page-header"><a href="{% url 'notes:detailnote'%}?id={{note.id}}"> {{ note.label }} </a>
-						{% if note.num_likes > 0 %}
-							<span style="float: right;" class="glyphicon glyphicon-thumbs-up">: {{ note.num_likes }} </span>
-						{% elif note.num_likes = 0 %}
-							<span style="float:right;">No votes</span>
-						{% else %}
-							<span style="float:right;" class="glyphicon glyphicon-thumbs-down">: {{ note.num_likes }}</span>
-						{% endif %}
+						<span style="float: right;" id="id_increase_{{ note.id }}" class="glyphicon glyphicon-thumbs-up">{{ note.num_likes }} </span>
 					</h3>
+					<div>
+						<p>{{ note.body }}</p>
 
-					<button class="class_increase_button" data-noteid="{{ note.id }}">More likes</button>
-					<button class="class_decrease_button" data-noteid="{{ note.id }}">Less likes</button>
-					<p id="id_increase_{{ note.id }}">{{ note.num_likes }}</p>
-
+						<button class="class_increase_button" data-noteid="{{ note.id }}">More likes</button>
+						<button class="class_decrease_button" data-noteid="{{ note.id }}">Less likes</button>
+						<!--<p id="id_increase_{{ note.id }}">{{ note.num_likes }}</p>-->
+					</div>
 
 
 
