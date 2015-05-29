@@ -5,7 +5,7 @@ $(document).ready(function(){
     */ 
 	var csrftoken = $.cookie('csrftoken');
     // increasing
-    $(".class_increase_button").click(function(event){
+    $(".increase").click(function(event){
         event.preventDefault();
         var note_id = $(this).data("noteid");
         var href = "/notes/" + note_id + "/increase_num_likes/"; 
@@ -16,12 +16,12 @@ $(document).ready(function(){
         })
         .done(function(data){
             var num_likes_updated = data['num_likes_updated'];
-            var element_id = "#id_increase_" + note_id;
+            var element_id = "#likes_" + note_id;
             $(element_id).html(num_likes_updated)
         });
     });
     // decreasing
-    $(".class_decrease_button").click(function(event){
+    $(".decrease").click(function(event){
         event.preventDefault();
         var note_id = $(this).data("noteid");
         var href = "/notes/" + note_id + "/decrease_num_likes/"; 
@@ -32,7 +32,7 @@ $(document).ready(function(){
         })
         .done(function(data){
             var num_likes_updated = data['num_likes_updated'];
-            var element_id = "#id_increase_" + note_id;
+            var element_id = "#likes_" + note_id;
             $(element_id).html(num_likes_updated)
         });
     });

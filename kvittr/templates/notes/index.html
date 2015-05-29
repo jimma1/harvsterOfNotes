@@ -12,18 +12,13 @@
 			{% for note in notes %}
 				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
 					<h3 class="page-header"><a href="{% url 'notes:detailnote'%}?id={{note.id}}"> {{ note.label }} </a>
-						<span style="float: right;" id="id_increase_{{ note.id }}" class="glyphicon glyphicon-thumbs-up">{{ note.num_likes }} </span>
+						<span style="float: right;" id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up">{{ note.num_likes }} </span>
 					</h3>
 					<div>
 						<p>{{ note.body }}</p>
-
-						<button class="class_increase_button glyphicon glyphicon-thumbs-up" data-noteid="{{ note.id }}"></button>
-						<button class="class_decrease_button glyphicon glyphicon-thumbs-down" data-noteid="{{ note.id }}"></button>
-						<!--<p id="id_increase_{{ note.id }}">{{ note.num_likes }}</p>-->
+						<button class="increase glyphicon glyphicon-thumbs-up" data-noteid="{{ note.id }}"></button>
+						<button class="decrease glyphicon glyphicon-thumbs-down" data-noteid="{{ note.id }}"></button>
 					</div>
-
-
-
 					{% for tag in note.tags.all %}
 						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
