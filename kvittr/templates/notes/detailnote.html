@@ -19,25 +19,8 @@
 			<p>Description: {{ note.body }}</p>
 			<p>Created on: {{note.timestamp}}</p>
 			<p>Created by: {{note.author}} </p>
-			<p>
-				<div>
-					<a id="increase_num_likes_thumb" href="">
-						<span class="glyphicon glyphicon-thumbs-up" style="margin-right: 10px;"></span>
-					</a>
-					<a id="decrease_num_likes_thumb" href="">
-						<span class="glyphicon glyphicon-thumbs-down"></span>
-					</a>
-				</div>
-				<span> Number of likes:</span>
-				<div id="num_likes_div">
-					{{ note.num_likes }}
-				</div>
-			</p>
+			<p>Number of likes: {{ note.num_likes }}</p>
 		</div><!-- end col-->
 	</div><!-- end container-->
 </div><!-- end row -->
-
-<input type="hidden" id="num_likes_url" value="/notes/{{ note.id }}/increase_num_likes/" >
-<input type="hidden" id="decrease_num_likes_url" value="/notes/{{ note.id }}/decrease_num_likes/" >
-
 {% endblock pagecontent %}
