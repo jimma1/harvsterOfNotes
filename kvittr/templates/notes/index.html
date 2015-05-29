@@ -21,16 +21,8 @@
 						{% endif %}
 					</h3>
 
-
-					<!--
-					<div style="padding: 5px;" id="change_{{ note.id }}"> 
-						{{ note.body }}
-						<button class="button" data-noteid="{{ note.id }}">Change css</button>
-					</div>
-					-->
-
-					
 					<button class="class_increase_button" data-noteid="{{ note.id }}">More likes</button>
+					<button class="class_decrease_button" data-noteid="{{ note.id }}">Less likes</button>
 					<p id="id_increase_{{ note.id }}">{{ note.num_likes }}</p>
 
 
