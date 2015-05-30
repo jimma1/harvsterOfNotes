@@ -64,8 +64,6 @@ def user_login(request):
 		form = LoginForm()
 		context = {'form': form}
 		return render (request, 'useraccounts/login.html', context)
-	if request.user.is_authenticated():
-		return redirect('home')
 
 def user_update(request):
 	context = {}
