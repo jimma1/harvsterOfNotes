@@ -15,15 +15,17 @@
          <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="">
-                <a href="{% url 'notes:index' %}">Notes</a>
-            </li>
-            <li class="">
-              <a href="{% url 'notes:addnote' %}">Add note</a>
-            </li>
-            <li>
-              <a href="{% url 'notes:addtag' %}">Add Tag</a>
-            </li>
+            {% if user.is_authenticated %}
+              <li class="">
+                  <a href="{% url 'notes:index' %}">Notes</a>
+              </li>
+              <li class="">
+                <a href="{% url 'notes:addnote' %}">Add note</a>
+              </li>
+              <li>
+                <a href="{% url 'notes:addtag' %}">Add Tag</a>
+              </li>
+            {% endif %}
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_anonymous %}
