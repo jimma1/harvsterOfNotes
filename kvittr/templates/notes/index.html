@@ -20,11 +20,11 @@
 						<button style="float: right; margin-right: 10px;" class="increase glyphicon glyphicon-thumbs-up" data-noteid="{{ note.id }}"></button>
 						
 					</div>
+					<p style="float: left;">By {{ note.author }}</p>
 					{% for tag in note.tags.all %}
-						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+						<p style="clear:both;">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
 					<div>
-						<p style="float: left;">By {{ note.author }}</p>
 						<!-- display functionality only when author of note object is the logged in user-->
 						{% if note and note.author == request.user %}
 						<a style="float: right;" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
@@ -65,10 +65,10 @@
 					<h3> {{ note.label }}</h3>
 					<div style="padding: 5px;">
 						{{ note.body }}
-						<p>By {{ note.author }}</p>
 					</div>
+					<p style="float: left;">By {{ note.author }}</p>
 					{% for tag in note.tags.all %}
-						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+						<p style="clear:both;">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
 				</div><!-- end col 5-->
 			{% endfor %}
