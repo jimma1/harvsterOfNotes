@@ -70,11 +70,6 @@ def add_tag(request):
 		tag = None
 
 	if request.method == 'POST':
-		# delete tag
-		if request.POST.get('control') == 'delete':
-			tag.delete()
-			messages.add_message(request, messages.INFO, 'Tag Deleted!')
-			return HttpResponseRedirect(reverse('notes:index'))
 		# new tag which is slugifyed by Django, due to url search on tags
 		form = TagForm(request.POST, instance=tag)
 		if form.is_valid():

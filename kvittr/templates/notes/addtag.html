@@ -12,15 +12,6 @@
 			<button type="submit" class="btn btn-primary">Submit new tag</button>
 		</form>
 	</div><!-- end col-->
-	{% if tag %}
-		<div class="col-sm-12">
-			<form action="" method="POST">{% csrf_token %}
-				<input type="hidden" name="control" value="delete" />
-				<input type="submit" value="Delete" class="btn btn-danger" />
-				<!-- <button type="submit" class="btn btn-danger">Delete note</button> -->
-			</form>
-		</div><!-- end col -->
-	{% endif %}
 </div><!-- end row-->
 
 {% endblock pagecontent %}

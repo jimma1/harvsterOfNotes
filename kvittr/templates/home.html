@@ -41,11 +41,6 @@
 				{% for tag in tags %}
 					<li>
 						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
-						<ul>
-							<li>
-								<a href="{% url 'notes:addtag' %}?id={{tag.id}}">Edit tag</a>
-							</li>
-						</ul>
 					</li>
 				{% endfor %}
 			{% else %}
