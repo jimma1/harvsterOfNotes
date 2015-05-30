@@ -148,7 +148,7 @@ def index_view(request):
 	if request.user.is_authenticated():
 		user = request.user
 
-	tags = Tag.objects.all()
+	tags = Tag.objects.all().order_by('label')
 	context = {
 		'notes': notes,
 		'tags': tags
