@@ -1,25 +1,41 @@
 {% extends 'base.html' %}
 {% block pagecontent %}
 
-<div class="jumbotron">
-	<h1 align="center">Create New Note</h1>
-</div>
+{% if user.is_authenticated %}
+	<div class="jumbotron">
+		<h1 align="center">Create New Note</h1>
+	</div>
 
-<div class="row">
-	<div class="col-sm-12">
-		<form action="" method="POST">{% csrf_token %}
-			{{form.as_p}}
-			<button type="submit" class="btn btn-primary">Submit new note</button>
-		</form>
-	</div><!-- end col-->
-		{% if note %}
-			<div class="col-sm-12">
-				<form action="" method="POST">{% csrf_token %}
-					<input type="hidden" name="control" value="delete" />
-					<input type="submit" value="Delete" class="btn btn-danger" />
-				</form>
-			</div><!-- end col -->
-		{% endif %}
-</div><!-- end row-->
+	<div class="row">
+		<div class="col-sm-12">
+			<form action="" method="POST">{% csrf_token %}
+				{{form.as_p}}
+				<button type="submit" class="btn btn-primary">Submit new note</button>
+			</form>
+		</div>
+	</div>
+{% else %}
+	<div class="jumbotron">
+		<p>You have to be logged in to post a note</p>
+		<p>
+			<a href="{% url 'useraccounts:login' %}">Log in</a> if you have an account
+		</p>
+		<p>
+			Don't have an account?<a href="{% url 'useraccounts:register' %}"> Register</a> to be a part of the Kvittr experience
+		</p>
+	</div>
+{% endif%}
+
+<!-- editing existing note -->
+{% if note %}
+	<div class="row">
+		<div class="col-sm-12">
+			<form action="" method="POST">{% csrf_token %}
+				<input type="hidden" name="control" value="delete" />
+				<input type="submit" value="Delete" class="btn btn-danger" />
+			</form>
+		</div><!-- end col -->
+	</div><!-- end row -->
+{% endif %}
 
 {% endblock pagecontent %}
