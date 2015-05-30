@@ -16,8 +16,9 @@
 					</h3>
 					<div>
 						<p>{{ note.body }}</p>
-						<button class="increase glyphicon glyphicon-thumbs-up" data-noteid="{{ note.id }}"></button>
-						<button class="decrease glyphicon glyphicon-thumbs-down" data-noteid="{{ note.id }}"></button>
+						<button style="float: right;" class="decrease glyphicon glyphicon-thumbs-down" data-noteid="{{ note.id }}"></button>
+						<button style="float: right; margin-right: 10px;" class="increase glyphicon glyphicon-thumbs-up" data-noteid="{{ note.id }}"></button>
+						
 					</div>
 					{% for tag in note.tags.all %}
 						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
@@ -88,7 +89,7 @@
 {% endif %}
 </div><!-- end row-->
 <div class="pagination">
-              <span class"step-links">
+              <span class="step-links">
                 {% if notes.has_previous %}
                   <a href="?page={{notes.previous_page_number}}">previous page</a>
                 {% endif %}
