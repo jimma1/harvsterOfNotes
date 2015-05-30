@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block pagecontent %}
+{% if user.is_anonymous %}
 <form action="" method="POST">
 {% csrf_token %}
 	{% if form.errors %}
@@ -19,8 +20,14 @@
 		{% if form.password.errors %}<p>{{ form.password.errors }}</p>{% endif %} {{ form.non_field_errors }}
 		<p>{{ form.password }}</p>
 	</div>
-
 	<button type="submit" class="btn btn-primary">Login</button>
 </form>
+{% else %}
+<div class="jumbotron">
+	<p>You are allready logged in.</p>
+	<p><a href="{% url 'notes:index'%}" class="btn btn-primary btn-lg" role="button">Back to notes</a></p>
+</div>
+
+{% endif %}
 
 {% endblock pagecontent %}
