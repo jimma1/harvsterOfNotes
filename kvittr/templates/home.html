@@ -3,7 +3,15 @@
 {% block pagecontent %}
 
 <div class="jumbotron">
-	<h1 align="center">Note!</h1>
+	<h1 align="center">Notes in Kvittr</h1>
+	{% if user.is_anonymous %}
+		<p>
+			<a href="{% url 'useraccounts:login' %}">Log in</a> if you have an account
+		</p>
+		<p>
+			Don't have an account?<a href="{% url 'useraccounts:register' %}"> Register</a> to be a part of the Kvittr experience
+		</p>
+	{% endif %}
 </div>
 
 <div class="row">
