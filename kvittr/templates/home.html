@@ -61,10 +61,10 @@
 					<h3> {{ note.label }}</h3>
 					<div style="padding: 5px;">
 						{{ note.body }}
-						<p>By {{ note.author }}</p>
 					</div>
+					<p style="float: left;">By {{ note.author }}</p>
 					{% for tag in note.tags.all %}
-						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+						<p style="clear: both;">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
 				</div><!-- end col 5-->
 			{% endfor %}
