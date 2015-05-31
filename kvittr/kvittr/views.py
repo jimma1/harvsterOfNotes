@@ -18,7 +18,7 @@ def home_view(request):
 	except EmptyPage:
 		notes = paginator.page(paginator.num_pages)
 
-	tags = Tag.objects.all()
+	tags = Tag.objects.all().order_by('label')
 	context = {
 		'notes': notes,
 		'tags': tags
