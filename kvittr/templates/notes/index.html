@@ -1,101 +1,83 @@
 {% extends 'base.html' %}
 {% block pagecontent %}
 
-<div class="jumbotron">
-	<h1 align="center">Notes</h1>
-</div>
-
-<div class="row">
 {% if user.is_authenticated %}
-	<div class="col-sm-10">
-		{% if notes%}
-			{% for note in notes %}
-				<div class="col-sm-5 border margin10">
-					<h3 class="page-header"><a href="{% url 'notes:detailnote'%}?id={{note.id}}"> {{ note.label }} </a>
-						<span id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up pull-right">{{ note.num_likes }} </span>
-					</h3>
-					<div>
-						<p>{{ note.body }}</p>
-						<button class="decrease glyphicon glyphicon-thumbs-down pull-right" data-noteid="{{ note.id }}"></button>
-						<button class="increase glyphicon glyphicon-thumbs-up pull-right margin-right10" data-noteid="{{ note.id }}"></button>
-						
-					</div>
-					<p class="pull-left">By {{ note.author }}</p>
-					{% for tag in note.tags.all %}
-						<p class="clear-both">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
-					{% endfor %}
-					<div>
-						<!-- display functionality only when author of note object is the logged in user-->
-						{% if note and note.author == request.user %}
-						<a class="pull-right" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
-						{% endif %}
-					</div>
-				</div><!-- end col 5-->
-			{% endfor %}
-		{% else %}
-			<div class="col-sm-12">
-				<h3>No notes yet</h3>
-			</div>
-		{% endif %}
-	</div><!-- end col 10-->
-	<div class="col-sm-2">
-		<h3 class="page-header">Tags</h3>
-		<ul>
-			{% if tags %}
-				{% for tag in tags %}
-					<li>
-						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
-					</li>
+	<div class="jumbotron">
+		<h1 align="center">Notes</h1>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-10">
+			{% if notes%}
+				{% for note in notes %}
+					<div class="col-sm-5 border margin10">
+						<h3 class="page-header"><a href="{% url 'notes:detailnote'%}?id={{note.id}}"> {{ note.label }} </a>
+							<span id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up pull-right">{{ note.num_likes }} </span>
+						</h3>
+						<div>
+							<p>{{ note.body }}</p>
+							<button class="decrease glyphicon glyphicon-thumbs-down pull-right" data-noteid="{{ note.id }}"></button>
+							<button class="increase glyphicon glyphicon-thumbs-up pull-right margin-right10" data-noteid="{{ note.id }}"></button>
+							
+						</div>
+						<p class="pull-left">By {{ note.author }}</p>
+						{% for tag in note.tags.all %}
+							<p class="clear-both">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+						{% endfor %}
+						<div>
+							<!-- display functionality only when author of note object is the logged in user-->
+							{% if note and note.author == request.user %}
+							<a class="pull-right" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
+							{% endif %}
+						</div>
+					</div><!-- end col 5-->
 				{% endfor %}
 			{% else %}
-				<div class="alert alert-warning">No tags yet</div>
+				<div class="col-sm-12">
+					<h3>No notes yet</h3>
+				</div>
 			{% endif %}
-		</ul>
-	</div><!-- end col 2-->
-{% else %}
-	<div class="col-sm-10">
-		{% if notes%}
-			{% for note in notes %}
-				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
-					<h3> {{ note.label }}</h3>
-					<div style="padding: 5px;">
-						{{ note.body }}
-					</div>
-					<p style="float: left;">By {{ note.author }}</p>
-					{% for tag in note.tags.all %}
-						<p style="clear:both;">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+		</div><!-- end col 10-->
+		<div class="col-sm-2">
+			<h3 class="page-header">Tags</h3>
+			<ul>
+				{% if tags %}
+					{% for tag in tags %}
+						<li>
+							<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
+						</li>
 					{% endfor %}
-				</div><!-- end col 5-->
-			{% endfor %}
-		{% endif %}
-	</div><!-- end col 10-->
-	<div class="col-sm-2">
-		<h3 class="page-header">Tags</h3>
-		<ul>
-			{% if tags %}
-				{% for tag in tags %}
-					<li>
-						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
-					</li>
-				{% endfor %}
-			{% endif %}
-		</ul>
-	</div> <!-- end col 2-->
+				{% else %}
+					<div class="alert alert-warning">No tags yet</div>
+				{% endif %}
+			</ul>
+		</div><!-- end col 2-->
+	</div><!-- end row-->
+	<div class="pagination">
+		<span class="step-links">
+		    {% if notes.has_previous %}
+		    	<a href="?page={{notes.previous_page_number}}">previous page</a>
+		    {% endif %}
+
+		    <span class="current">
+		    	Page {{ notes.number }} of {{ notes.paginator.num_pages }}.
+		    </span>
+
+		    {% if notes.has_next %}
+		    	<a href="?page={{ notes.next_page_number }}">next page</a>
+		    {% endif %}
+		</span>
+	</div><!-- end pagination-->
+
+{% else %}
+	<div class="jumbotron">
+		<p>You have to be logged in to view this page and see all the functionality</p>
+		<p>
+			<a href="{% url 'useraccounts:login' %}">Log in</a> if you have an account
+		</p>
+		<p>
+			Don't have an account?<a href="{% url 'useraccounts:register' %}"> Register</a> to be a part of the Kvittr experience
+		</p>
+	</div>
 {% endif %}
-</div><!-- end row-->
-<div class="pagination">
-              <span class="step-links">
-                {% if notes.has_previous %}
-                  <a href="?page={{notes.previous_page_number}}">previous page</a>
-                {% endif %}
-
-                <span class="current">
-                  Page {{ notes.number }} of {{ notes.paginator.num_pages }}.
-                </span>
-
-                {% if notes.has_next %}
-                  <a href="?page={{ notes.next_page_number }}">next page</a>
-                {% endif %}
-              </span>
-          </div><!-- end pagination-->
 {% endblock pagecontent %}
