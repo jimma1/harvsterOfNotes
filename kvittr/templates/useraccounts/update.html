@@ -56,15 +56,5 @@
 	<button type="submit" class="btn btn-primary">Dare to update info</button>
 	</form>
 	<a href="{% url 'notes:index'%}" class="btn btn-default margin-top10" role="button">Back</a>
-{% else %}
-	<div class="jumbotron">
-		<p>You have to be logged in to view this page and see all the functionality</p>
-		<p>
-			<a href="{% url 'useraccounts:login' %}">Log in</a> if you have an account
-		</p>
-		<p>
-			Don't have an account?<a href="{% url 'useraccounts:register' %}"> Register</a> to be a part of the Kvittr experience
-		</p>
-	</div>
 {% endif %}
 {% endblock pagecontent %}
