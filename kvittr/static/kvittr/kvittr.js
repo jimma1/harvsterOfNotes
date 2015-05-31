@@ -4,7 +4,7 @@ $(document).ready(function(){
     * Send token with ajax in header to verify.
     */ 
 	var csrftoken = $.cookie('csrftoken');
-    // increasing
+    // increasing likes
     $(".increase").click(function(event){
         event.preventDefault();
         var note_id = $(this).data("noteid");
@@ -20,7 +20,7 @@ $(document).ready(function(){
             $(element_id).html(num_likes_updated)
         });
     });
-    // decreasing
+    // decreasing likes
     $(".decrease").click(function(event){
         event.preventDefault();
         var note_id = $(this).data("noteid");

@@ -20,8 +20,7 @@ class RegistrationForm(ModelForm):
 
 	# when called in view, check if username is taken
 	def clean_username(self):
-		# data coming back for the form after posting in view
-		username= self.cleaned_data['username']
+		username= self.cleaned_data['username'] # self.cleaned_data is data from the form after post
 		try:
 			User.objects.get(username=username)
 		except User.DoesNotExist:

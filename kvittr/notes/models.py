@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from useraccounts.models import Member
 '''
 Searching in tags with GET request to a special crafted url.
-Must use slug which only accept letters, numbers, underscores and hyphens
+Must use slugify in Django, which only accept letters, numbers, underscores and hyphens
 '''
 
 # Create your models here.
@@ -19,7 +19,7 @@ class Note(models.Model):
 	num_likes = models.PositiveIntegerField(default=0)
 
 	def __unicode__(self):
-		return u'%s' % (self.label)
+		return self.label
 
 class Tag(models.Model):
 	label = models.CharField(max_length = 30)

@@ -20,9 +20,7 @@ from kvittr.views import home_view
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    # requests to mysite.com
     url(r'^$', home_view, name='home'),
-    # requests to mysite.com/notes directed to urls.py in notes dir
     url(r'^notes/', include('notes.urls', namespace='notes')),
     url(r'^useraccounts/', include('useraccounts.urls', namespace='useraccounts')),
 ]

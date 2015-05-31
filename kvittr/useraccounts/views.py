@@ -69,11 +69,12 @@ def user_login(request):
 		context = {'form': form}
 		return render (request, 'useraccounts/login.html', context)
 
+# Only logged in user shall access account html page
 @user_passes_test(registered_user)
 def user_update(request):
 	context = {}
 	if request.method == 'POST':
-		# instance is logged in user
+		# instance of logged in user
 		form = UserupdateForm(request.POST, instance=request.user)
 		if form.is_valid():
 			form.save()
