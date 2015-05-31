@@ -9,8 +9,8 @@ Must use slugify in Django, which only accept letters, numbers, underscores and 
 
 # Create your models here.
 class Note(models.Model):
-	label = models.CharField(max_length = 30)
-	body = models.TextField()
+	label = models.CharField(max_length = 15)
+	body = models.TextField(max_length=333)
 	# populate field with time of note creation
 	timestamp = models.DateTimeField(auto_now_add=True)
 	# a note may have zero or many tags
@@ -22,8 +22,8 @@ class Note(models.Model):
 		return self.label
 
 class Tag(models.Model):
-	label = models.CharField(max_length = 30)
-	slug = models.SlugField(max_length=30)
+	label = models.CharField(max_length = 20)
+	slug = models.SlugField(max_length=20)
 
 	def __unicode__(self):
 		return self.label
