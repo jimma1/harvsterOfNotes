@@ -28,6 +28,7 @@
 			<p>Created on: {{note.timestamp}}</p>
 			<p>Created by: {{note.author}} </p>
 			<p>Number of likes: {{ note.num_likes }}</p>
+			<a href="{% url 'notes:index'%}" class="btn btn-default" role="button">Back</a>
 		</div><!-- end col-->
 	</div><!-- end container-->
 </div><!-- end row -->

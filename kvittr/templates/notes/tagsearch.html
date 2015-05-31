@@ -37,5 +37,14 @@
 		{% endif %}
 	</span>
 </div><!-- end pagination-->
+{% if user.is_authenticated %}
+	<div class="clear-both">
+		<a href="{% url 'notes:index'%}" class="btn btn-default margin-top10" role="button">Back</a>
+	</div>
+{% else %}
+	<div class="clear-both">
+		<a href="{% url 'home'%}" class="btn btn-default margin-top10" role="button">Home</a>
+	</div>
+{% endif %}
 
 {% endblock pagecontent %}

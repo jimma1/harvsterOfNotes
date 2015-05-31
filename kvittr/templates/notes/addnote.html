@@ -29,7 +29,7 @@
 <!-- editing existing note -->
 {% if note %}
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col-sm-6 margin-top10">
 			<form action="" method="POST">{% csrf_token %}
 				<input type="hidden" name="control" value="delete" />
 				<input type="submit" value="Delete" class="btn btn-danger" />
@@ -37,5 +37,6 @@
 		</div><!-- end col -->
 	</div><!-- end row -->
 {% endif %}
+<a href="{% url 'notes:index'%}" class="btn btn-default margin-top10" role="button">Back</a>
 
 {% endblock pagecontent %}

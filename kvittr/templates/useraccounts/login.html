@@ -2,31 +2,36 @@
 
 {% block pagecontent %}
 {% if user.is_anonymous %}
-<form action="" method="POST">
-{% csrf_token %}
-	{% if form.errors %}
-		<div class="alert alert-danger"><p>Please fix the errors</p></div>
-	{% endif %}
-	
-	<div class="form-group">
-		<label for="username" {% if form.username.errors%} class="text-danger" {% endif %}>Username:</label>
-		{% if form.username.errors %}<p>{{ form.username.errors }}</p>{% endif %}
-		{{ form.username }}
-	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<form action="" method="POST">
+				{% csrf_token %}
+				{% if form.errors %}
+					<div class="alert alert-danger"><p>Please fix the errors</p></div>
+				{% endif %}
+				
+				<div class="form-group">
+					<label for="username" {% if form.username.errors%} class="text-danger" {% endif %}>Username:</label>
+					{% if form.username.errors %}<p>{{ form.username.errors }}</p>{% endif %}
+					<p>{{ form.username }}</p>
+				</div>
 
-	<div class="form-group">
-		<label for="password">Password:</label>
-		<!-- form.non_field applys to more than a single field, used on password with verify-->
-		{% if form.password.errors %}<p>{{ form.password.errors }}</p>{% endif %} {{ form.non_field_errors }}
-		<p>{{ form.password }}</p>
+				<div class="form-group">
+					<label for="password">Password:</label>
+					<!-- form.non_field applys to more than a single field, used on password with verify-->
+					{% if form.password.errors %}<p>{{ form.password.errors }}</p>{% endif %} {{ form.non_field_errors }}
+					<p>{{ form.password }}</p>
+				</div>
+				<button type="submit" class="btn btn-primary">Login</button>
+			</form>
+			<p class="margin-top30">Don't have an account? <a href="{% url 'useraccounts:register' %}">Register</a> to be a part of the Kvittr experience</p>
+		</div>
 	</div>
-	<button type="submit" class="btn btn-primary">Login</button>
-</form>
 {% else %}
-<div class="jumbotron">
-	<p>You are allready logged in.</p>
-	<p><a href="{% url 'notes:index'%}" class="btn btn-primary btn-lg" role="button">Back to notes</a></p>
-</div>
+	<div class="jumbotron">
+		<p>You are allready logged in.</p>
+		<p><a href="{% url 'notes:index'%}" class="btn btn-primary btn-lg" role="button">Back to notes</a></p>
+	</div>
 
 {% endif %}
 
