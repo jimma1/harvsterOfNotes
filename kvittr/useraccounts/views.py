@@ -4,10 +4,14 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
 
 from useraccounts.forms import LoginForm, RegistrationForm, UserupdateForm
 
 # Create your views here.
+def registered_user(user):
+	return (user.is_authenticated())
+
 def user_registration(request):
 	if request.method == 'POST':
 		# get userinput in form
@@ -65,6 +69,7 @@ def user_login(request):
 		context = {'form': form}
 		return render (request, 'useraccounts/login.html', context)
 
+@user_passes_test(registered_user)
 def user_update(request):
 	context = {}
 	if request.method == 'POST':
