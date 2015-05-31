@@ -12,8 +12,8 @@
 				{{form.as_p}}
 				<button type="submit" class="btn btn-primary">Submit new note</button>
 			</form>
-		</div>
-	</div>
+		</div> <!-- end col-->
+	</div> <!-- end row -->
 {% else %}
 	<div class="jumbotron">
 		<p>You have to be logged in to post a note</p>
@@ -37,6 +37,8 @@
 		</div><!-- end col -->
 	</div><!-- end row -->
 {% endif %}
-<a href="{% url 'notes:index'%}" class="btn btn-default margin-top10" role="button">Back</a>
+<div class="clear-both">
+	<a href="{% url 'notes:index'%}" class="btn btn-default margin-top10" role="button">Back</a>
+</div>
 
 {% endblock pagecontent %}

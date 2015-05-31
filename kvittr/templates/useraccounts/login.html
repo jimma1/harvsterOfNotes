@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block pagecontent %}
+
 {% if user.is_anonymous %}
 	<div class="row">
 		<div class="col-sm-3">
@@ -24,15 +24,16 @@
 				</div>
 				<button type="submit" class="btn btn-primary">Login</button>
 			</form>
-			<p class="margin-top30">Don't have an account? <a href="{% url 'useraccounts:register' %}">Register</a> to be a part of the Kvittr experience</p>
-		</div>
-	</div>
+			<p class="margin-top30">
+				Don't have an account? <a href="{% url 'useraccounts:register' %}">Register</a> to be a part of the Kvittr experience
+			</p>
+		</div><!-- end col3-->
+	</div><!-- end row-->
 {% else %}
 	<div class="jumbotron">
 		<p>You are allready logged in.</p>
 		<p><a href="{% url 'notes:index'%}" class="btn btn-primary btn-lg" role="button">Back to notes</a></p>
 	</div>
-
 {% endif %}
 
 {% endblock pagecontent %}

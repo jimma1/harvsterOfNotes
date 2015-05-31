@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block pagecontent %}
 
 <div class="jumbotron">
@@ -15,82 +14,86 @@
 </div>
 
 <div class="row">
-{% if user.is_authenticated %}
-	<div class="col-sm-10">
-		{% if notes%}
-			{% for note in notes %}
-				<div class="col-sm-5 border margin10">
-					<h3 class="page-header">
-						<a href="{% url 'notes:detailnote' %}?id={{note.id}}">{{ note.label }}</a>
-						<span id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up pull-right">{{ note.num_likes }} </span>
-					</h3>
-					<div class="padding5"> 
-						<p>{{ note.body }}</p>						
-					</div>
-					{% for tag in note.tags.all %}
-						<p class="clearfix">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
-					{% endfor %}
-					<div>
-						<p class="text-left">By {{ note.author }}</p>
-						<!-- display functionality only when author of note object is the logged in user-->
-						{% if note and note.author == request.user %}
-							<a class="pull-right" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
-						{% endif %}
-					</div>
-				</div><!-- end col 5-->
-			{% endfor %}
-		{% else %}
-			<div class="col-sm-12">
-				<h3>No notes yet</h3>
-			</div>
-		{% endif %}
-	</div><!-- end col 10-->
-	<div class="col-sm-2">
-		<h3 class="page-header">Tags</h3>
-		<ul>
-			{% if tags %}
-				{% for tag in tags %}
-					<li>
-						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
-					</li>
+	{% if user.is_authenticated %}
+		<div class="col-sm-10">
+			{% if notes%}
+				{% for note in notes %}
+					<div class="col-sm-5 border margin10">
+						<h3 class="page-header">
+							<a href="{% url 'notes:detailnote' %}?id={{note.id}}">{{ note.label }}</a>
+							<span id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up pull-right">{{ note.num_likes }} </span>
+						</h3>
+						<div class="padding5"> 
+							<p>{{ note.body }}</p>						
+						</div>
+						{% for tag in note.tags.all %}
+							<p class="clear-both">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+						{% endfor %}
+						<div>
+							<p class="text-left">By {{ note.author }}</p>
+							<!-- 
+								Display functionality only when author of note object is the logged in user
+								This is a small system so little loss of speed of test done here.
+								Bigger systems should do if test in view for less work in browser
+							-->
+							{% if note and note.author == request.user %}
+								<a class="pull-right" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
+							{% endif %}
+						</div>
+					</div><!-- end col 5-->
 				{% endfor %}
 			{% else %}
-				<div class="alert alert-warning">No tags yet</div>
+				<div class="col-sm-12">
+					<h3>No notes yet</h3>
+				</div>
 			{% endif %}
-		</ul>
-	</div><!-- end col 2-->
-{% else %}
-	<div class="col-sm-10">
-		{% if notes%}
-			{% for note in notes %}
-				<div class="col-sm-5 border margin10" >
-					<h3 class="page-header"> {{ note.label }}
-						<span id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up pull-right">{{ note.num_likes }} </span>
-					</h3>
-					<div class="padding5">
-						{{ note.body }}
-					</div>
-					<p class="text-left">By {{ note.author }}</p>
-					{% for tag in note.tags.all %}
-						<p class="clearfix">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+		</div><!-- end col 10-->
+		<div class="col-sm-2">
+			<h3 class="page-header">Tags</h3>
+			<ul>
+				{% if tags %}
+					{% for tag in tags %}
+						<li>
+							<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
+						</li>
 					{% endfor %}
-				</div><!-- end col 5-->
-			{% endfor %}
-		{% endif %}
-	</div><!-- end col 10-->
-	<div class="col-sm-2">
-		<h3 class="page-header">Tags</h3>
-		<ul>
-			{% if tags %}
-				{% for tag in tags %}
-					<li>
-						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
-					</li>
+				{% else %}
+					<div class="alert alert-warning">No tags yet</div>
+				{% endif %}
+			</ul>
+		</div><!-- end col 2-->
+	{% else %}
+		<div class="col-sm-10">
+			{% if notes%}
+				{% for note in notes %}
+					<div class="col-sm-5 border margin10" >
+						<h3 class="page-header"> {{ note.label }}
+							<span id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up pull-right">{{ note.num_likes }} </span>
+						</h3>
+						<div class="padding5">
+							{{ note.body }}
+						</div>
+						<p class="text-left">By {{ note.author }}</p>
+						{% for tag in note.tags.all %}
+							<p class="clearfix">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+						{% endfor %}
+					</div><!-- end col 5-->
 				{% endfor %}
 			{% endif %}
-		</ul>
-	</div> <!-- end col 2-->
-{% endif %}
+		</div><!-- end col 10-->
+		<div class="col-sm-2">
+			<h3 class="page-header">Tags</h3>
+			<ul>
+				{% if tags %}
+					{% for tag in tags %}
+						<li>
+							<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
+						</li>
+					{% endfor %}
+				{% endif %}
+			</ul>
+		</div> <!-- end col 2-->
+	{% endif %}
 </div><!-- endrow-->
 
 <div class="pagination">
@@ -99,18 +102,20 @@
 			<a href="?page={{notes.previous_page_number}}">previous page</a>
 		{% endif %}
 
-    <span class="current">
-    	Page {{ notes.number }} of {{ notes.paginator.num_pages }}.
-    </span>
+	    <span class="current">
+	    	Page {{ notes.number }} of {{ notes.paginator.num_pages }}.
+	    </span>
 
-    {% if notes.has_next %}
-    	<a href="?page={{ notes.next_page_number }}">next page</a>
-    {% endif %}
+	    {% if notes.has_next %}
+	    	<a href="?page={{ notes.next_page_number }}">next page</a>
+	    {% endif %}
   </span><!-- end step links-->
 </div><!-- end pagination-->
-<div class="clear-both">
-	<a href="{% url 'home' %}" type="button" class="btn btn-default margin10">Home</a>
-</div>
-		
 
+{% if notes.has_previous %}
+	<div class="clear-both">
+		<a href="{% url 'home' %}" type="button" class="btn btn-default margin10">Home</a>
+	</div>
+{% endif %}
+		
 {% endblock pagecontent %}

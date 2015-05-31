@@ -11,14 +11,14 @@
 			{% if notes%}
 				{% for note in notes %}
 					<div class="col-sm-5 border margin10">
-						<h3 class="page-header"><a href="{% url 'notes:detailnote'%}?id={{note.id}}"> {{ note.label }} </a>
+						<h3 class="page-header">
+							<a href="{% url 'notes:detailnote'%}?id={{note.id}}"> {{ note.label }} </a>
 							<span id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up pull-right">{{ note.num_likes }} </span>
 						</h3>
 						<div>
 							<p>{{ note.body }}</p>
 							<button class="decrease glyphicon glyphicon-thumbs-down pull-right" data-noteid="{{ note.id }}"></button>
 							<button class="increase glyphicon glyphicon-thumbs-up pull-right margin-right10" data-noteid="{{ note.id }}"></button>
-							
 						</div>
 						<p class="pull-left">By {{ note.author }}</p>
 						{% for tag in note.tags.all %}

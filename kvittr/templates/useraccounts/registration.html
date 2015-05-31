@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
 
 {% block pagecontent %}
+
 <form action="" method="POST">
 {% csrf_token %}
 {% if form.errors %}<div class="alert alert-danger"><p>Please fix the errors</p></div>{% endif %}
 
 <div class="form-group">
+	<!-- Change text color if error -->
 	<label for="first_name" {% if form.first_name.errors %} class="text-danger"{% endif %}>
 		First Name:
 	</label>
+	<!-- show user where error is if any-->
 	{% if form.first_name.errors %}<p>{{ form.first_name.errors }}</p>{% endif %}
 	<p>{{ form.first_name }}</p>
 </div>
+
 <div class="form-group">
 	<label for="last_name" {% if form.last_name.errors %} class="text-danger"{% endif %}>
 		Last Name:
@@ -56,7 +60,5 @@
 </form>
 
 <a href="{% url 'home'%}" class="btn btn-default margin-top10" role="button">Back</a>
-
-
 
 {% endblock pagecontent %}

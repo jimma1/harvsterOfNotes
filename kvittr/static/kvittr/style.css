@@ -24,8 +24,10 @@ body{
 	padding: 5px;
 }
 
-
-
 .clear-both{
 	clear: both;
+}
+
+.alignCenter{
+	text-align: center;
 }
