@@ -26,8 +26,8 @@ def user_registration(request):
 				password=form.cleaned_data['password']
 				)
 			user.save()
-			messages.add_message(request, messages.INFO, 'User successfully registered. Login to add notes')
-			return HttpResponseRedirect(reverse('notes:index'))
+			messages.add_message(request, messages.INFO, 'User successfully registered. Login to Kvittr')
+			return HttpResponseRedirect(reverse('useraccounts:login'))
 		# not valid
 		else:
 			context = {'form': form}
