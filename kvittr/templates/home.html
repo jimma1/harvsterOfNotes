@@ -20,7 +20,10 @@
 		{% if notes%}
 			{% for note in notes %}
 				<div class="col-sm-5 border margin10">
-					<h3 class="page-header"> <a href="{% url 'notes:detailnote' %}?id={{note.id}}">{{ note.label }}</a></h3>
+					<h3 class="page-header">
+						<a href="{% url 'notes:detailnote' %}?id={{note.id}}">{{ note.label }}</a>
+						<span id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up pull-right">{{ note.num_likes }} </span>
+					</h3>
 					<div class="padding5"> 
 						<p>{{ note.body }}</p>						
 					</div>
@@ -61,7 +64,9 @@
 		{% if notes%}
 			{% for note in notes %}
 				<div class="col-sm-5 border margin10" >
-					<h3 class="page-header"> {{ note.label }}</h3>
+					<h3 class="page-header"> {{ note.label }}
+						<span id="likes_{{ note.id }}" class="glyphicon glyphicon-thumbs-up pull-right">{{ note.num_likes }} </span>
+					</h3>
 					<div class="padding5">
 						{{ note.body }}
 					</div>
@@ -103,6 +108,9 @@
     {% endif %}
   </span><!-- end step links-->
 </div><!-- end pagination-->
+<div class="clear-both">
+	<a href="{% url 'home' %}" type="button" class="btn btn-default margin10">Home</a>
+</div>
 		
 
 {% endblock pagecontent %}
