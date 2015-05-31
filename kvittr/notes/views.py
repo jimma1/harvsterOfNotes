@@ -54,10 +54,12 @@ def tag_search(request, **kwargs):
 		notes = paginator.page(1)
 	except EmptyPage:
 		notes = paginator.page(paginator.num_pages)
-	
+	tags = Tag.objects.all().order_by('label')
 	context = {
 		'notes': notes,
-		'tag': tag}
+		'tag': tag,
+		'tags': tags
+		}
 
 	return render(request, 'notes/tagsearch.html', context)
 

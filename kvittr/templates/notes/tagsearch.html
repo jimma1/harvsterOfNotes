@@ -2,25 +2,41 @@
 {% block pagecontent %}
 
 <div class="jumbotron">
-	<h1 align="center">Notes tagged with {{tag}}</h1>
+	<h1 class="alignCenter">Notes tagged with {{tag}}</h1>
 </div>
 
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-10">
 		{% if notes %}
 			{% for note in notes %}
-				<h3 class="page-header">{{note.label}}</h3>
-				{{note.body|linebreaks}}
+				<div class="margin10">
+					<h3 class="page-header">{{note.label}}</h3>
+					<p>{{note.body}}</p>
 					{% for tag in note.tags.all %}
-						{{tag}}{% if not forloop.last%} | {% endif %}
+						<div>Tag: {{tag}}</div>
 					{% endfor%}
+				</div>
 			{% endfor%}
 		{% else %}
-			<div class="alert alert-warning" align="center">
+			<div class="alert alert-warning alignCenter">
 				<h3>No Notes With This Tag</h3>
 			</div>
 		{% endif%}
-	</div><!-- end col -->
+	</div><!-- end col 10-->
+	<div class="col-sm-2">
+		<h3 class="page-header">All Tags</h3>
+		<ul>
+			{% if tags %}
+				{% for tag in tags %}
+					<li>
+						<a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a>
+					</li>
+				{% endfor %}
+			{% else %}
+				<div class="alert alert-warning">No tags yet</div>
+			{% endif %}
+		</ul>
+	</div><!-- end col 2-->
 </div><!-- end row-->
 <div class="pagination">
 	<span class"step-links">
