@@ -19,19 +19,19 @@
 	<div class="col-sm-10">
 		{% if notes%}
 			{% for note in notes %}
-				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
+				<div class="col-sm-5 border margin10">
 					<h3 class="page-header"> <a href="{% url 'notes:detailnote' %}?id={{note.id}}">{{ note.label }}</a></h3>
-					<div style="padding: 5px;"> 
+					<div class="padding5"> 
 						<p>{{ note.body }}</p>						
 					</div>
 					{% for tag in note.tags.all %}
-						<p>Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+						<p class="clearfix">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
 					<div>
-						<p style="float: left;">By {{ note.author }}</p>
+						<p class="text-left">By {{ note.author }}</p>
 						<!-- display functionality only when author of note object is the logged in user-->
 						{% if note and note.author == request.user %}
-							<a style="float: right;" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
+							<a class="pull-right" href="{% url 'notes:addnote' %}?id={{note.id}}">Edit Note</a>
 						{% endif %}
 					</div>
 				</div><!-- end col 5-->
@@ -60,14 +60,14 @@
 	<div class="col-sm-10">
 		{% if notes%}
 			{% for note in notes %}
-				<div class="col-sm-5" style="border: 1px solid; margin: 10px;">
-					<h3> {{ note.label }}</h3>
-					<div style="padding: 5px;">
+				<div class="col-sm-5 border margin10" >
+					<h3 class="page-header"> {{ note.label }}</h3>
+					<div class="padding5">
 						{{ note.body }}
 					</div>
-					<p style="float: left;">By {{ note.author }}</p>
+					<p class="text-left">By {{ note.author }}</p>
 					{% for tag in note.tags.all %}
-						<p style="clear: both;">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
+						<p class="clearfix">Tag: <a href="{% url 'notes:tagsearch' slug=tag.slug %}">{{tag}}</a></p>
 					{% endfor %}
 				</div><!-- end col 5-->
 			{% endfor %}
