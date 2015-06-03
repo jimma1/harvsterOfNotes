@@ -7,4 +7,4 @@ This is an exam task at University College Ostfold, Norway.
 Settings in project is configured for localhost only.
 The project uses a directory for templates and a directory for static files.
 
-To make this software work on your localhost, you must migrate to get the tables into the database before starting the server. Users have reported problems with initializing the database. The solution to this problem is to delete existing migration files for properly synchronization. 
+To make this software work on your localhost, you must migrate to get the tables into the database before starting the server.
